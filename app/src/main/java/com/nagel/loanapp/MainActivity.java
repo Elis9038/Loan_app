@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     private EditText txtCost, txtLoan, txtRate, txtPaym, txtYear, txtTerm;
     private Button btnAmortisation, btnCalculate, btnClear;
@@ -95,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
         }
         try {
             term = Integer.parseInt(txtTerm.getText().toString());
+            Loan loanL = new Loan();
+            loanL.setPeriods(term);
             if (term <= 0 || term > 12) throw new Exception();
         } catch (Exception ex) {
             Toast.makeText(this, "Exception accured: " + ex, Toast.LENGTH_SHORT).show();
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         Loan.getInstance().setPrincipal(loan + cost);
         Loan.getInstance().setInterestRate(rate / 100 / term);
         Loan.getInstance().setPeriods(year * term);
-        txtPaym.setText(String.format("%1.2f", Loan.getInstance().payment()));
+        txtPaym.setText(String.format(Locale.getDefault(),"%.2f", Loan.getInstance().payment()));
     }
 
     public void onAmort(View view) {

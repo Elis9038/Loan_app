@@ -1,6 +1,6 @@
 package com.nagel.loanapp;
 
-public class Loan {
+class Loan {
 
     static Loan instance = null;
     double principal = 0;     // the amount borrowed inc. costs
@@ -43,13 +43,13 @@ public class Loan {
         return payment() - interest(n);
     }
 
-    public double getPeriods() { return principal + interestRate / (main.getYear() / 12); }
+    public double getPeriods() { return periods; }
 
     public void setPrincipal(double pr) {
         this.principal = pr;
     }
 
-    public void setPeriods(int per) {
+    void setPeriods(int per) {
         this.periods = per;
     }
 

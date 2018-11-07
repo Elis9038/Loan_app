@@ -2,6 +2,7 @@ package com.nagel.loanapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class PlanActivity extends AppCompatActivity {
 
@@ -29,12 +31,13 @@ public class PlanActivity extends AppCompatActivity {
         items.add("Repayment");
         items.add("Outstanding");
 
+
         for (int n = 1; n <= Loan.getInstance().getPeriods(); ++n)
         {
             items.add("" + n);
-            items.add(String.format("%1.2f", Loan.getInstance().interest(n)));
-            items.add(String.format("%1.2f", Loan.getInstance().repayment(n)));
-            items.add(String.format("%1.2f", Math.abs(Loan.getInstance().outstanding(n))));
+            items.add(String.format(Locale.getDefault(), "%.2f", Loan.getInstance().interest(n)));
+            items.add(String.format(Locale.getDefault(),"%.2f", Loan.getInstance().repayment(n)));
+            items.add(String.format(Locale.getDefault(),"%.2f", Math.abs(Loan.getInstance().outstanding(n))));
         }
 
         GridView grid = findViewById(R.id.grid);
@@ -49,9 +52,7 @@ public class PlanActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
             }
-
         });
-
 
     }
 }
