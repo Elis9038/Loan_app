@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:stretchMode="columnWidth"
-        android:numColumns="4"/>
+        android:numColumns="4"/> <!-- Changed number of columns to 4 -->
 
-</LinearLayout>
+</LinearLayout> <!-- Put this line after GridView because every widget has to be
+                     within the main layout -->

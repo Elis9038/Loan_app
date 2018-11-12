@@ -33,24 +33,25 @@ class Loan {
         return principal * Math.pow(1 + interestRate, n) - payment() * (Math.pow(1 + interestRate, n) - 1) / interestRate;
     }
 
-    public double interest(int n)
+    double interest(int n)
     {
         return outstanding(n - 1) * interestRate;
     }
 
-    public double repayment(int n)
+    double repayment(int n)
     {
         return payment() - interest(n);
     }
 
-    public double getPeriods() { return periods; }
-
-    public void setPrincipal(double pr) {
-        this.principal = pr;
-    }
-
+    // Added two methods to set and get periods variable from another class
     void setPeriods(int per) {
         this.periods = per;
+    }
+    double getPeriods() { return periods; }
+
+    // Also two methods to change variable values from another class
+    public void setPrincipal(double pr) {
+        this.principal = pr;
     }
 
     public void setInterestRate(double interest) {

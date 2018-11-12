@@ -30,18 +30,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        // Added all buttons to use them in this class
         btnCalculate = findViewById(R.id.btnCalculate);
         btnClear = findViewById(R.id.btnClear);
         txtPaym = findViewById(R.id.txtPaym);
-        txtPaym.setEnabled(false);
         txtCost = findViewById(R.id.txtCost);
         txtLoan = findViewById(R.id.txtLoan);
         txtRate= findViewById(R.id.txtRate);
         txtYear = findViewById(R.id.txtYear);
         txtTerm = findViewById(R.id.txtTerm);
+
+        // Have put setEnabled() method because there isn't any disable() method
+        txtPaym.setEnabled(false);
     }
 
     public void onClear(View view) {
+        // Changed setTextTo() to setText()
         txtCost.setText("");
         txtLoan.setText("");
         txtRate.setText("");
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         double cost = 0;
         double loan;
         double rate;
+        /* Changed variable types below (String => int). Made "year" as a global variable
+           to have access to it from another methods within this class */
         year = 0;
         int term = 0;
         try {
@@ -67,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 if (cost <= 0) throw new Exception();
             }
         } catch (Exception ex) {
+            /* Declared all Toast correctly (Toast.show() => Toast.makeText())
+               and wrote all texts for them */
             Toast.makeText(this, "Exception accured: " + ex, Toast.LENGTH_SHORT).show();
             txtCost.requestFocus();
             return;
@@ -81,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
         try {
             rate = Double.parseDouble(txtRate.getText().toString().trim());
+            // Changed the numbers and, partially, logical expressions in if() check
             if (rate < 0 && rate < 50) throw new Exception();
         } catch (Exception ex) {
             Toast.makeText(this, "Exception accured: " + ex, Toast.LENGTH_SHORT).show();
@@ -108,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Loan.getInstance().setPrincipal(loan + cost);
         Loan.getInstance().setInterestRate(rate / 100 / term);
         Loan.getInstance().setPeriods(year * term);
+        // Added "Locale.getDefault()" to format() method
         txtPaym.setText(String.format(Locale.getDefault(),"%.2f", Loan.getInstance().payment()));
     }
 
@@ -117,14 +127,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
-    public String getString(EditText t) {
-        return t.getText().toString();
-    }
-
-    public int getYear() {
-        return year;
-    }
-
 }
 

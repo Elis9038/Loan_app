@@ -24,17 +24,14 @@ public class PlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan);
 
-        MainActivity main = new MainActivity();
-
         items.add("Period");
         items.add("Interest");
         items.add("Repayment");
         items.add("Outstanding");
 
-
-        for (int n = 1; n <= Loan.getInstance().getPeriods(); ++n)
+        for (int n = 1; n <= Loan.getInstance().getPeriods(); ++n) // Changed "++m" to "++n"
         {
-            items.add("" + n);
+            items.add(String.valueOf(n));
             items.add(String.format(Locale.getDefault(), "%.2f", Loan.getInstance().interest(n)));
             items.add(String.format(Locale.getDefault(),"%.2f", Loan.getInstance().repayment(n)));
             items.add(String.format(Locale.getDefault(),"%.2f", Math.abs(Loan.getInstance().outstanding(n))));
@@ -42,8 +39,6 @@ public class PlanActivity extends AppCompatActivity {
 
         GridView grid = findViewById(R.id.grid);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, items);
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         grid.setAdapter(adapter);
